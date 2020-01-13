@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Tic Tac Toe</string>
+    <string name="btn_reset_text">reset</string>
+    <string name="ico_swap">ico_swap</string>
+    <string name="ico_active_player">ico_active_player</string>
+</resources>

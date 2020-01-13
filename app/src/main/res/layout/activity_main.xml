@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="game"
+            type="com.jonnydev.tictactoe.models.Game" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainBGColor"
+        tools:context=".ui.MainActivity">
+
+        <TextView
+            android:id="@+id/player1_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{game.player1.name}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/player2_symb"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/player1_symb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{game.player2.symb}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/player2_title"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_swap"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_swap"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/ico_swap"
+            app:layout_constraintEnd_toStartOf="@+id/player1_symb"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/player2_symb"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_swap_black_24dp" />
+
+        <TextView
+            android:id="@+id/player2_symb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{game.player1.symb}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_swap"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/player1_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/player2_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{game.player2.name}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/player1_symb"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ico_active_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/ico_active_player"
+            app:layout_constraintEnd_toStartOf="@+id/active_player_name"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_swap"
+            app:srcCompat="@drawable/ic_hourglass_empty_black_24dp" />
+
+        <TextView
+            android:id="@+id/active_player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{game.activePlayer.name + " moves"}'
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ico_active_player"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/ico_active_player"
+            app:layout_constraintTop_toTopOf="@+id/ico_active_player" />
+
+        <RelativeLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ico_active_player">
+
+            <TableLayout
+                android:id="@+id/field_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*" />
+
+            <com.jonnydev.tictactoe.models.WinnerLineView
+                android:id="@+id/line_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/field_table"
+                android:layout_alignBottom="@+id/field_table"
+                android:visibility="@{game.hasWinner ? View.VISIBLE : View.GONE}" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/btn_reset_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_launcher"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container" />
+
+        <Button
+            android:id="@+id/btn_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="launch"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_reset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_reset"
+            app:layout_constraintTop_toTopOf="@+id/btn_reset" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
